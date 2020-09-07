@@ -3,7 +3,7 @@
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
 const articleData = require("./ArticleData").data;
 
-console.log(articleData);
+console.log("Article Data", articleData);
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
@@ -90,4 +90,4 @@ allArticlesArr.forEach((article) => {
   articlesContainer.appendChild(article);
 });
 
-console.log(allArticlesArr);
+console.log("Elements to insert to DOM", allArticlesArr);

@@ -43,7 +43,7 @@ In this project we are going to be building a news feed reader. The goal is to h
 
 ### Part 3: The Menu
 
-- Follow the instructions found in the Menu.js file to complete the JavaScript functionality.
+- [x] Follow the instructions found in the Menu.js file to complete the JavaScript functionality.
 
 ### Part 4: Exit Ticket
 
