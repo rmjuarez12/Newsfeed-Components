@@ -1,3 +1,6 @@
+// Import the GSAP library
+import { gsap } from "gsap";
+
 // This is the data we will be using to create our articles. Look at it, then proceed to line 93.
 // OPTIONAL: if you're feeling adventurous, try to make this data an export from a different module, and import it here.
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
@@ -45,10 +48,12 @@ function articleMaker(article) {
   const bodyParagraph2 = document.createElement("p");
   const bodyParagraph3 = document.createElement("p");
   const expandBtn = document.createElement("span");
+  const closeBtn = document.createElement("span");
 
   // Add some attributes to the inner HTML elements
   articleDate.classList.add("date");
   expandBtn.classList.add("expandButton");
+  closeBtn.classList.add("close");
 
   // Add the text content into the HTML elements
   articleTitle.textContent = article.title;
@@ -56,16 +61,54 @@ function articleMaker(article) {
   bodyParagraph2.textContent = article.secondParagraph;
   bodyParagraph3.textContent = article.thirdParagraph;
   articleDate.textContent = article.date;
-  expandBtn.textContent = "+";
+  expandBtn.textContent = "Click to Expand";
+  closeBtn.textContent = "x";
 
   // Add an Event Listener to the button
   expandBtn.addEventListener("click", () => {
+    // Toggle the active class when expand button clicks
     newArticle.classList.toggle("article-open");
+
+    // Change the text of the expand button, depending on active class
+    expandBtn.textContent = newArticle.classList.contains("article-open")
+      ? "Click to Close"
+      : "Click to Expand";
+
+    if (newArticle.classList.contains("article-open")) {
+      gsap.to(newArticle, { height: "auto", duration: 2 });
+      gsap.to(articleDate, { opacity: 1, x: 0, duration: 2 });
+      gsap.to(bodyParagraph1, { opacity: 1, x: 0, duration: 2 });
+      gsap.to(bodyParagraph2, { opacity: 1, x: 0, duration: 2 });
+      gsap.to(bodyParagraph3, { opacity: 1, x: 0, duration: 2 });
+    } else {
+      gsap.to(newArticle, { height: 60, duration: 2 });
+      gsap.to(articleDate, { opacity: 0, x: -100, duration: 2 });
+      gsap.to(bodyParagraph1, { opacity: 0, x: -100, duration: 2 });
+      gsap.to(bodyParagraph2, { opacity: 0, x: -100, duration: 2 });
+      gsap.to(bodyParagraph3, { opacity: 0, x: -100, duration: 2 });
+    }
+  });
+
+  // Add an event listener to the close button
+  closeBtn.addEventListener("click", (e) => {
+    gsap.to(newArticle, { opacity: 0, display: "none", x: -100, duration: 1 });
+
+    setTimeout(function () {
+      newArticle.parentNode.removeChild(newArticle);
+    }, 1500);
   });
 
   // Create an array with all inner elements to add
   let childElements = [];
-  childElements.push(articleTitle, articleDate, bodyParagraph1, bodyParagraph2, bodyParagraph3, expandBtn);
+  childElements.push(
+    articleTitle,
+    articleDate,
+    bodyParagraph1,
+    bodyParagraph2,
+    bodyParagraph3,
+    expandBtn,
+    closeBtn
+  );
 
   // Add the inner HTML inside the article element
   childElements.forEach((item) => {

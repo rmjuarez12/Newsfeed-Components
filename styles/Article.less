@@ -8,7 +8,7 @@
   border-radius: 10px;
   background-color: white;
   position: relative;
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   box-shadow: 2px 2px 2px lightgrey;
 
@@ -23,16 +23,22 @@
     font-size: 14px;
   }
 
+  p {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+
   .close {
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
   }
 
   .expandButton {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    right: 0;
     font-size: 12px;
     color: grey;
     cursor: pointer;
@@ -40,11 +46,3 @@
     background-color: white;
   }
 }
-
-.article-open {
-  height: 400px;
-}
-
-
-
-
