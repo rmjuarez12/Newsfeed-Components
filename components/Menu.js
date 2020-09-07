@@ -1,3 +1,6 @@
+// Import the GSAP library
+import { gsap } from "gsap";
+
 // This is the data we will be using, study it but don't change anything, yet.
 
 let menuItems = ["Students", "Faculty", "What's New", "Tech Trends", "Music", "Log Out"];
@@ -48,8 +51,15 @@ function menuMaker(menuItems) {
 
   // Create an Event Listener for the menu button
   const menuButton = document.querySelector(".menu-button");
+
   menuButton.addEventListener("click", () => {
     newMenu.classList.toggle("menu--open");
+
+    if (newMenu.classList.contains("menu--open")) {
+      gsap.to(".menu", { opacity: 1, x: 0, duration: 1.5 });
+    } else {
+      gsap.to(".menu", { opacity: 0, x: -350, duration: 1.5 });
+    }
   });
 
   // Return the new menu
