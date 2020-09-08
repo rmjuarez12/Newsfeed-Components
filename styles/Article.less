@@ -19,8 +19,10 @@
   }
 
   .date {
-    margin: 0;
+    margin: 5px 0 0;
     font-size: 14px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #000;
   }
 
   p {
@@ -37,12 +39,62 @@
 
   .expandButton {
     position: absolute;
-    bottom: 0;
+    top: 15px;
     right: 0;
     font-size: 12px;
     color: grey;
     cursor: pointer;
     transform: translate(-50%);
     background-color: white;
+  }
+}
+
+.add-article {
+  width: 60%;
+  margin: 0 auto;
+  background: #388e3c;
+  padding: 20px;
+  border-radius: 5px;
+
+  h3 {
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    display: block;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none !important;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  button {
+    background: transparent;
+    border: #fff 2px solid;
+    font-size: 14pt;
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.3s all;
+  }
+
+  button:hover {
+    color: #388e3c;
+    background: #fff;
+  }
+
+  .response {
+    color: #fff;
+    height: 0;
+    overflow: hidden;
   }
 }

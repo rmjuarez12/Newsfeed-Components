@@ -134,3 +134,105 @@ allArticlesArr.forEach((article) => {
 });
 
 console.log("Elements to insert to DOM", allArticlesArr);
+
+/************************************************
+ *  Function to create new article from form
+ ************************************************/
+
+// Add a form in the front-end
+function addArticleForm() {
+  // Variables for the form content
+  const formContainer = document.createElement("form");
+  const formTitle = document.createElement("h3");
+  const titleField = document.createElement("input");
+  const dateField = document.createElement("input");
+  const paragraphField = document.createElement("textarea");
+  const submitBtn = document.createElement("button");
+  const response = document.createElement("p");
+
+  // Add attributes to elements above
+  formContainer.classList.add("add-article");
+  formTitle.textContent = "Add an Article";
+  titleField.setAttribute("type", "text");
+  titleField.setAttribute("placeholder", "Enter Article Title");
+  titleField.setAttribute("id", "article-name");
+  dateField.setAttribute("type", "text");
+  dateField.setAttribute("placeholder", "Enter Article Date");
+  dateField.setAttribute("id", "article-date");
+  paragraphField.setAttribute("placeholder", "Enter Article Content");
+  paragraphField.setAttribute("id", "article-body");
+  submitBtn.textContent = "Add Article";
+  response.classList.add("response");
+
+  // Create an array with all inner childs
+  let childElements = [];
+  childElements.push(formTitle, titleField, dateField, paragraphField, submitBtn, response);
+
+  // Add the inner HTML inside the article element
+  childElements.forEach((item) => {
+    formContainer.appendChild(item);
+  });
+
+  return formContainer;
+}
+
+// Insert the form in the DOM
+const body = document.querySelector("body");
+body.appendChild(addArticleForm());
+
+// Add an event listener to the submit button
+const addArticleSubmit = document.querySelector(".add-article button");
+addArticleSubmit.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  // Get the values
+  const titleVal = document.getElementById("article-name").value;
+  const dateval = document.getElementById("article-date").value;
+  const paragraphVal = document.getElementById("article-body").value;
+
+  // If some values are empty, throw an error
+  if (titleVal === "") {
+    alert("Please enter a title");
+    return false;
+  } else if (dateval === "") {
+    alert("Please enter a date");
+    return false;
+  } else if (paragraphVal === "") {
+    alert("Please enter body text");
+    return false;
+  }
+
+  // Create an object with the new paragraph
+  const newArticle = {
+    title: titleVal,
+    date: dateval,
+    firstParagraph: paragraphVal,
+  };
+
+  // Use the callback function to make the article
+  const articleToAdd = articleMaker(newArticle);
+
+  // Add some styling prior to creating
+  articleToAdd.style.opacity = 0;
+  articleToAdd.style.transform = "translateX(-100px)";
+
+  // Insert into the DOM
+  articlesContainer.prepend(articleToAdd);
+
+  // Add an animation to come in
+  gsap.to(articleToAdd, { opacity: 1, x: 0, duration: 1 });
+
+  // Clear the form once it is submitted
+  const addArticleForm = document.querySelector(".add-article");
+  addArticleForm.reset();
+
+  // Load in response
+  const responseSection = document.querySelector(".response");
+  gsap.to(responseSection, { height: "auto", duration: 1 });
+  responseSection.textContent = "Article Submitted";
+
+  // Remove the response after 2s
+  setTimeout(function () {
+    gsap.to(responseSection, { height: 0, duration: 1 });
+  }, 2000);
+});
